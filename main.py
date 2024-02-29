@@ -42,7 +42,7 @@ def handle_help_command(message):
 def echo_all(message):
     chat_id = get_chat_id(message)
     # send loading indicator and save in variable to delete later
-    downloading_message = bot.send_message(chat_id, "Downloading...")
+    downloading_message = bot.send_message(chat_id, "Завантаження ⏳")
 
     try:
         # find and download audio from YouTube in mp3 format
