@@ -1,14 +1,17 @@
 import os
 import telebot
-from time import sleep
+import logging
 from dotenv import load_dotenv
 from pytube import YouTube
+from datetime import date
 
 load_dotenv()
 
 TOKEN = os.environ["TOKEN"]
 
 bot = telebot.TeleBot(TOKEN, parse_mode=None)
+
+logging.basicConfig(filename="info.log", level=logging.INFO)
 
 
 def get_chat_id(message):
@@ -56,6 +59,10 @@ def echo_all(message):
         )
         # delete audio
         os.remove(filepath)
+
+        # log information
+        log_text = f"{date.today()} - User: {message.chat.first_name} {message.chat.last_name} - Music: {video.title} - {video.author}"
+        logging.info(log_text)
     except Exception as error:
         bot.send_message(
             chat_id,
